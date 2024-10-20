@@ -1,7 +1,7 @@
 import React from 'react';
-import './User.css';
-import Header from './components/Header';
-import RoomTabs from './components/RoomTabs';
+import './UserPage.css';
+import Header from '../../components/user/Header';
+import RoomTabs from '../../components/user/RoomTabs';
 
 function App() {
   return (
