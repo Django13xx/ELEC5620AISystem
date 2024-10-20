@@ -1,0 +1,17 @@
+.room-tabs {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .room-tabs button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .room-tabs button.active {
+    border-bottom: 2px solid black;
+  }
