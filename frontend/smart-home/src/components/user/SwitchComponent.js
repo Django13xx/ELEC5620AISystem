@@ -18,3 +18,6 @@ function SwitchComponent({ label }) {
     </div>
   );
 }
+
+// Ensure you add this export statement
+export default SwitchComponent;
