@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import './App.css';
 import Header from './components/manager/Header';
 import LoginPage from './pages/manager/LoginPage';
@@ -15,7 +16,7 @@ import AdminPage from './pages/manager/AdminPage';
 
 
 // Main App Component
-const App = () => {
+function App() {
   const token = useSelector((state) => state.user.user.token);
 
   return (
