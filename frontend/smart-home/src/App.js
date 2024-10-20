@@ -33,7 +33,8 @@ function App() {
           <Route path="/add" element={<ProtectedRoute><AddPage /></ProtectedRoute>} />
           <Route path="/edit" element={<ProtectedRoute><EditPage /></ProtectedRoute>} />
           <Route path="/character" element={<ProtectedRoute><CharacterDetailPage /></ProtectedRoute>} />
-          <Route path="/user" element={<ProtectedRoute><UserInfoPage /></ProtectedRoute>} />
+          {/* set user page to unprotected for dev purpose */}
+          <Route path="/user" element={<UserInfoPage />} />
           <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
         </Routes>
       </Router>

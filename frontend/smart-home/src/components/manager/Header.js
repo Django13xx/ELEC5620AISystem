@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header>
-      <h1>App Header</h1>
+      <h1>5620Group12 Smart Home</h1>
       {isAuthenticated ? (
         <div>
           <span>Welcome, {user.name}</span>
