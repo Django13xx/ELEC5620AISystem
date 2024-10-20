@@ -1,19 +1,27 @@
 import React from 'react';
-import './Header.css'; // 可以为该组件创建单独的CSS文件
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../reducers/manager/userSlice';
 
 const Header = () => {
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
-    <div className="header">
-      <div className="header-icons">
-        <button className="add-button">+</button>
-        <span>Users</span>
-        <span>Notification</span>
-      </div>
-      <div className="user-info">
-        <span>Marvin McKinney</span>
-        <span>Admin</span>
-      </div>
-    </div>
+    <header>
+      <h1>App Header</h1>
+      {isAuthenticated ? (
+        <div>
+          <span>Welcome, {user.name}</span>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      ) : (
+        <span>Please log in</span>
+      )}
+    </header>
   );
 };
 
