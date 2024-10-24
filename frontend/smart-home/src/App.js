@@ -15,6 +15,7 @@ import CharacterDetailPage from './pages/manager/CharacterDetailPage';
 import UserInfoPage from './pages/user/UserPage';
 import AdminPage from './pages/manager/AdminPage';
 import ProtectedRoute from './hoc/ProtectedRoute'; // 导入 ProtectedRoute
+import ManagerPage from './pages/manager/ManagerPage';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />} />
           <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to="/" />} />
           <Route path="/register" element={!isAuthenticated ? <RegisterPage /> : <Navigate to="/" />} />
+          <Route path="/manager" element={!isAuthenticated ? <ManagerPage /> : <Navigate to="/" />} />
 
           {/* 受保护的路由 */}
           <Route path="/add" element={<ProtectedRoute><AddPage /></ProtectedRoute>} />
