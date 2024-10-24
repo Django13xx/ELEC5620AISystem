@@ -2,7 +2,7 @@ import React from 'react';
 import StatusBadge from './StatusBadge';
 
 const HomeownerRow = ({ homeowner }) => {
-  const { name, address, email, phone, dateAdded, status } = homeowner;
+  const { name, room, email, phone, date, status, rentPaid } = homeowner;
 
   // 样式定义
   const rowStyle = {
@@ -29,13 +29,14 @@ const HomeownerRow = ({ homeowner }) => {
   return (
     <tr style={rowStyle}>
       <td style={tdStyle}>{name}</td>
-      <td style={tdStyle}>{address}</td>
+      <td style={tdStyle}>{room}</td>
       <td style={tdStyle}>{email}</td>
       <td style={tdStyle}>{phone}</td>
-      <td style={tdStyle}>{dateAdded}</td>
+      <td style={tdStyle}>{date}</td>
       <td style={tdStyle}>
         <StatusBadge status={status} />
       </td>
+      <td style={tdStyle}>{rentPaid}</td>
       <td style={tdStyle}>
         <button style={actionButtonStyle}>→</button>
       </td>

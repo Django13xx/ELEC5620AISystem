@@ -47,7 +47,7 @@ const HomeownerTable = ({ homeowners }) => {
       {/* 头部区域 */}
       <div style={headerStyle}>
         <div>
-          <h2 style={titleStyle}>List of Homeowners</h2>
+          <h2 style={titleStyle}>List of Residents</h2>
           <p style={subtitleStyle}>{homeowners.length} homeowners found</p>
         </div>
         <AddButton />
@@ -58,11 +58,12 @@ const HomeownerTable = ({ homeowners }) => {
         <thead>
           <tr>
             <th style={thStyle}>Name</th>
-            <th style={thStyle}>Address</th>
+            <th style={thStyle}>Room</th>
             <th style={thStyle}>Email</th>
             <th style={thStyle}>Phone Number</th>
-            <th style={thStyle}>Date Added</th>
+            <th style={thStyle}>Date</th>
             <th style={thStyle}>Status</th>
+            <th style={thStyle}>Rent Paid</th>
             <th style={thStyle}>Actions</th>
           </tr>
         </thead>
