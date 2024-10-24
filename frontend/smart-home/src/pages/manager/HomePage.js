@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/manager/Navbar';
-import Sidebar from '../../components/manager/Sidebar';
+// import Sidebar from '../../components/manager/Sidebar';
 import HomeownerTable from '../../components/manager/HomeownerTable';
 
 const homeowners = [
@@ -28,7 +28,7 @@ const HomeownerPage = () => {
     <div className="homeowner-page">
       <Navbar />
       <div className="main-content">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <HomeownerTable homeowners={homeowners} />
       </div>
     </div>

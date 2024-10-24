@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './app/store';
+// import { PersistGate } from 'redux-persist/integration/react';
+// import { store, persistor } from './app/store';
 
 import './App.css';
-import Header from './components/manager/Header';
+// import Header from './components/manager/Header';
 import LoginPage from './pages/manager/LoginPage';
 import RegisterPage from './pages/manager/RegisterPage';
 import HomePage from './pages/manager/HomePage';
@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="app-container">
       <Router>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           {/* 公共路由 */}
           <Route path="/" element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />} />
