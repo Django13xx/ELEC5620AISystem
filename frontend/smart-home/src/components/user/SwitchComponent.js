@@ -21,3 +21,4 @@ function SwitchComponent({ label }) {
 
 // Ensure you add this export statement
 export default SwitchComponent;
+
