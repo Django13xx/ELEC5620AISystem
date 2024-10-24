@@ -1,10 +1,10 @@
 import React from 'react';
 import StatusBadge from './StatusBadge';
 
-const HomeownerRow = ({ homeowner }) => {
-  const { name, address, email, phone, dateAdded, status } = homeowner;
+const ManagerRow = ({ manager }) => {
+  const { name, address, email, phone, dateAdded, status } = manager;
 
-  // 样式定义
+
   const rowStyle = {
     borderBottom: '1px solid #ddd',
   };
@@ -43,4 +43,4 @@ const HomeownerRow = ({ homeowner }) => {
   );
 };
 
-export default HomeownerRow;
+export default ManagerRow;
