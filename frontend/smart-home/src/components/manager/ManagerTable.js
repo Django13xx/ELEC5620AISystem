@@ -1,9 +1,9 @@
 import React from 'react';
-import HomeownerRow from './HomeownerRow';
+import ManagerRow from './ManagerRow';
 import AddButton from './AddButton';
 
-const HomeownerTable = ({ homeowners }) => {
-  // 样式定义
+const ManagerTable = ({ managers }) => {
+
   const containerStyle = {
     maxWidth: '1200px',
     margin: '0 auto',
@@ -44,32 +44,31 @@ const HomeownerTable = ({ homeowners }) => {
 
   return (
     <div style={containerStyle}>
-      {/* 头部区域 */}
+
       <div style={headerStyle}>
         <div>
-          <h2 style={titleStyle}>List of Residents</h2>
-          <p style={subtitleStyle}>{homeowners.length} homeowners found</p>
+          <h2 style={titleStyle}>List of Homeowners</h2>
+          <p style={subtitleStyle}>{managers.length} managers found</p>
         </div>
         <AddButton />
       </div>
 
-      {/* 表格 */}
+
       <table style={tableStyle}>
         <thead>
           <tr>
             <th style={thStyle}>Name</th>
-            <th style={thStyle}>Room</th>
+            <th style={thStyle}>Address</th>
             <th style={thStyle}>Email</th>
             <th style={thStyle}>Phone Number</th>
-            <th style={thStyle}>Date</th>
+            <th style={thStyle}>Date Added</th>
             <th style={thStyle}>Status</th>
-            <th style={thStyle}>Rent Paid</th>
             <th style={thStyle}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {homeowners.map((homeowner) => (
-            <HomeownerRow key={homeowner.email} homeowner={homeowner} />
+          {managers.map((manager) => (
+            <ManagerRow key={manager.email} manager={manager} />
           ))}
         </tbody>
       </table>
@@ -77,4 +76,4 @@ const HomeownerTable = ({ homeowners }) => {
   );
 };
 
-export default HomeownerTable;
+export default ManagerTable;
