@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeownerRow from './HomeownerRow';
 import AddButton from './AddButton';
 
-const HomeownerTable = ({ homeowners }) => {
+const HomeownerTable = ({ userId }) => {
+  // 居民列表的状态管理
+  const [homeowners, setHomeowners] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   // 样式定义
   const containerStyle = {
     maxWidth: '1200px',
@@ -42,13 +47,51 @@ const HomeownerTable = ({ homeowners }) => {
     borderBottom: '2px solid #ddd',
   };
 
+  // 获取居民数据
+  useEffect(() => {
+    const fetchResidents = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/users/getresidents?userId=${userId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch residents');
+        }
+        const data = await response.json();
+        
+        // 只保留需要的字段
+        const filteredData = data.map((homeowner) => ({
+          username: homeowner.username,
+          email: homeowner.email,
+          room: homeowner.room,
+          number: homeowner.number,
+          status: homeowner.status === 1 ? "Active" : "No Active",
+        }));
+        
+        setHomeowners(filteredData);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchResidents();
+  }, [userId]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div style={containerStyle}>
       {/* 头部区域 */}
       <div style={headerStyle}>
         <div>
           <h2 style={titleStyle}>List of Residents</h2>
-          <p style={subtitleStyle}>{homeowners.length} homeowners found</p>
+          <p style={subtitleStyle}>{homeowners.length} residents found</p>
         </div>
         <AddButton />
       </div>
