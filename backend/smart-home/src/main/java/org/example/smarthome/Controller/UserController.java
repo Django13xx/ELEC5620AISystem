@@ -43,10 +43,6 @@ public class UserController {
 
     @PostMapping("/addresident")
     public ResponseEntity<User> addResident(@RequestParam int userId, @RequestBody User user) {
-        user.setRole(User.Role.RESIDENT);
-        user.setParentId(userId);
-    @PostMapping("/addresident")
-    public ResponseEntity<User> addResident(@RequestParam int userId, @RequestBody User user) {
         // 设置默认角色为 "RESIDENT"
         user.setRole(User.Role.RESIDENT);
         // 设置 parent_id 为请求中提供的 userId
