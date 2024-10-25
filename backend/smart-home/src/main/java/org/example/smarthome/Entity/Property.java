@@ -38,11 +38,11 @@ public class Property {
         this.propertyNumber = propertyNumber;
     }
 
-    public User getHomeowner() {
+    public User getuser() {
         return user;
     }
 
-    public void setHomeowner(User user) {
+    public void setuser(User user) {
         this.user = user;
     }
 
