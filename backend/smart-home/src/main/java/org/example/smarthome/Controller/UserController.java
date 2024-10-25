@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @CrossOrigin(origins = "http://localhost:3000") // 修改为前端的实际运行地址
 @RestController
 @RequestMapping("/api/users")
@@ -17,6 +18,7 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> request) {
@@ -43,6 +45,13 @@ public class UserController {
     public ResponseEntity<User> addResident(@RequestParam int userId, @RequestBody User user) {
         user.setRole(User.Role.RESIDENT);
         user.setParentId(userId);
+    @PostMapping("/addresident")
+    public ResponseEntity<User> addResident(@RequestParam int userId, @RequestBody User user) {
+        // 设置默认角色为 "RESIDENT"
+        user.setRole(User.Role.RESIDENT);
+        // 设置 parent_id 为请求中提供的 userId
+        user.setParentId(userId);
+        // 设置默认密码为 "resident" + room
         if (user.getRoom() != null) {
             user.setPassword("resident" + user.getRoom());
         }

@@ -5,11 +5,15 @@ import TemperatureSwitch from './TemperatureSwitch';
 
 function ControlPanel() {
   return (
-    <div className="control-panel">
-      <SwitchComponent label="Lights" />
-      <TemperatureSwitch />
-      <SwitchComponent label="Music" />
-      <SwitchComponent label="Fragrance" />
+    <div>
+      <div className="control-panel">
+        <SwitchComponent label="Lights" />
+        <SwitchComponent label="Music" />
+        <SwitchComponent label="Fragrance" />
+      </div>
+      <div>
+              <TemperatureSwitch />
+      </div>
     </div>
   );
 }

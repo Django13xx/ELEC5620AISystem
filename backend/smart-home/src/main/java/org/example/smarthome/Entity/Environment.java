@@ -1,5 +1,7 @@
 package org.example.smarthome.Entity;
+
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "environment")
 public class Environment {
@@ -7,21 +9,21 @@ public class Environment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int environmentId;
 
-    @Column(nullable = false, precision = 5, scale = 2)
-    private double acTemperature;
+    @Column(nullable = false)
+    private int acTemperature;
 
     @Column(nullable = false)
-    private String curtainStatus;
+    private int curtainStatus;
 
-    @Column(length = 100)
-    private String musicTrack;
+    @Column
+    private Integer musicTrack;
 
-    @Column(length = 100)
-    private String fragranceType;
+    @Column
+    private Integer fragranceType;
 
     public Environment() {}
 
-    public Environment(int environmentId, double acTemperature, String curtainStatus, String musicTrack, String fragranceType) {
+    public Environment(int environmentId, int acTemperature, int curtainStatus, Integer musicTrack, Integer fragranceType) {
         this.environmentId = environmentId;
         this.acTemperature = acTemperature;
         this.curtainStatus = curtainStatus;
@@ -38,35 +40,35 @@ public class Environment {
         this.environmentId = environmentId;
     }
 
-    public double getAcTemperature() {
+    public int getAcTemperature() {
         return acTemperature;
     }
 
-    public void setAcTemperature(double acTemperature) {
+    public void setAcTemperature(int acTemperature) {
         this.acTemperature = acTemperature;
     }
 
-    public String getCurtainStatus() {
+    public int getCurtainStatus() {
         return curtainStatus;
     }
 
-    public void setCurtainStatus(String curtainStatus) {
+    public void setCurtainStatus(int curtainStatus) {
         this.curtainStatus = curtainStatus;
     }
 
-    public String getMusicTrack() {
+    public Integer getMusicTrack() {
         return musicTrack;
     }
 
-    public void setMusicTrack(String musicTrack) {
+    public void setMusicTrack(Integer musicTrack) {
         this.musicTrack = musicTrack;
     }
 
-    public String getFragranceType() {
+    public Integer getFragranceType() {
         return fragranceType;
     }
 
-    public void setFragranceType(String fragranceType) {
+    public void setFragranceType(Integer fragranceType) {
         this.fragranceType = fragranceType;
     }
 }

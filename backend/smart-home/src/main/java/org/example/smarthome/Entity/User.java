@@ -35,7 +35,6 @@ public class User {
     @Column(nullable = false)
     private Integer parentId; // 将 parent_id 修改为 parentId
 
-
     // Getters and setters
     public int getUserId() {
         return userId;
@@ -114,5 +113,5 @@ public class User {
         PROPERTY_MANAGER, HOMEOWNER, RESIDENT, VISITOR
     }
 
-
 }
+
