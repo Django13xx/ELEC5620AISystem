@@ -1,4 +1,6 @@
 package org.example.smarthome.Controller;
+import org.example.smarthome.Entity.Property;
+import org.example.smarthome.Repository.PropertyRepository;
 import org.example.smarthome.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PropertyRepository propertyRepository;
 
 
     @PostMapping("/login")
@@ -42,27 +47,48 @@ public class UserController {
 
 
     @PostMapping("/addresident")
-    public ResponseEntity<User> addResident(@RequestParam int userId, @RequestBody User user) {
-        // 设置默认角色为 "RESIDENT"
+    public ResponseEntity<User> addResident(@RequestParam int userId, @RequestParam int propertyId, @RequestBody User user) {
         user.setRole(User.Role.RESIDENT);
-        // 设置 parent_id 为请求中提供的 userId
         user.setParentId(userId);
-        // 设置默认密码为 "resident" + room
-        if (user.getRoom() != null) {
-            user.setPassword("resident" + user.getRoom());
-        }
+        user.setPassword("resident" + user.getNumber());
+        // 保存新用户
         User savedUser = userRepository.save(user);
+
+        // 获取 property_number 并插入一条新的 property 记录
+        Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
+        if (propertyOptional.isPresent()) {
+            Property property = propertyOptional.get();
+            Property newProperty = new Property();
+            newProperty.setPropertyNumber(property.getPropertyNumber());
+            newProperty.setHomeowner(savedUser);
+            newProperty.setRelationship(Property.Relationship.LEASE);
+            propertyRepository.save(newProperty);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/addhomeowner")
-    public ResponseEntity<User> addHomeOwner(@RequestParam int userId, @RequestBody User user) {
+    public ResponseEntity<User> addHomeOwner(@RequestParam int userId, @RequestParam int propertyId, @RequestBody User user) {
+        // 设置默认角色为 "HOMEOWNER"
         user.setRole(User.Role.HOMEOWNER);
         user.setParentId(userId);
-        if (user.getRoom() != null) {
-            user.setPassword("homeowner" + user.getRoom());
-        }
+        user.setPassword("homeowner" + user.getNumber());
+        // 保存新用户
         User savedUser = userRepository.save(user);
+
+        // 获取 property_number 并更新 property 记录的 homeowner_user_id
+        Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
+        if (propertyOptional.isPresent()) {
+            Property property = propertyOptional.get();
+            property.setHomeowner(savedUser);
+            propertyRepository.save(property);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 

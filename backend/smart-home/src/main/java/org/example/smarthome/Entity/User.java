@@ -23,8 +23,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(length = 50)
-    private String room;
 
     @Column(length = 20)
     private String number;
@@ -76,13 +74,6 @@ public class User {
         this.role = role;
     }
 
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
 
     public String getNumber() {
         return number;
