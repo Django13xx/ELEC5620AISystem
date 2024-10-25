@@ -33,7 +33,7 @@ public class User {
     private Integer status;
 
     @Column(nullable = false)
-    private Integer parent_id;
+    private Integer parentId; // 将 parent_id 修改为 parentId
 
     // Getters and setters
     public int getUserId() {
@@ -101,11 +101,11 @@ public class User {
     }
 
     public void setParentId(int userId) {
-        this.parent_id = userId;
+        this.parentId = userId;
     }
 
-    public Integer getParent_id(){
-        return parent_id;
+    public Integer getParentId(){
+        return parentId;
     }
 
     // Enum for role
@@ -113,5 +113,5 @@ public class User {
         PROPERTY_MANAGER, HOMEOWNER, RESIDENT, VISITOR
     }
 
-
 }
+
