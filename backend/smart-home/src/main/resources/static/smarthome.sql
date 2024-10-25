@@ -14,11 +14,11 @@ CREATE TABLE user (
                       username VARCHAR(50) NOT NULL,
                       email VARCHAR(100) NOT NULL,
                       password VARCHAR(100) NOT NULL,
-                      role ENUM('property_manager', 'homeowner', 'resident', 'visitor') NOT NULL,
+                      role ENUM('PROPERTY_MANAGER', 'HOMEOWNER', 'RESIDENT', 'VISITOR') NOT NULL,
                       parent_id INT DEFAULT 0,
                       room VARCHAR(50),
                       number VARCHAR(20),
-                      status INT
+                      status INT NOT NULL
 );
 
 -- 创建环境表
@@ -31,10 +31,12 @@ CREATE TABLE environment (
 );
 
 -- 示例数据插入
-INSERT INTO user (username, email, password, role, parent_id) VALUES
-                                                                  ('manager1', 'manager1@example.com', 'password1', 'property_manager', 0),
-                                                                  ('homeowner1', 'homeowner1@example.com', 'password2', 'homeowner', 1),
-                                                                  ('resident1', 'resident1@example.com', 'password3', 'resident', 2);
+INSERT INTO user (username, email, password, role, parent_id, status) VALUES
+    ('manager1', 'manager1@example.com', 'password1', 'PROPERTY_MANAGER', 0, 1),
+    ('homeowner1', 'homeowner1@example.com', 'password2', 'HOMEOWNER', 1, 1),
+    ('resident1', 'resident1@example.com', 'password3', 'RESIDENT', 2, 1);
+
+
 
 INSERT INTO environment (ac_temperature, curtain_status, music_track, fragrance_type) VALUES
                                                                                           (23, 1, 1, 1),
