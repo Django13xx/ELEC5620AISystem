@@ -60,7 +60,7 @@ public class UserController {
             Property property = propertyOptional.get();
             Property newProperty = new Property();
             newProperty.setPropertyNumber(property.getPropertyNumber());
-            newProperty.setHomeowner(savedUser);
+            newProperty.setuser(savedUser);
             newProperty.setRelationship(Property.Relationship.LEASE);
             propertyRepository.save(newProperty);
         } else {
@@ -79,11 +79,10 @@ public class UserController {
         // 保存新用户
         User savedUser = userRepository.save(user);
 
-        // 获取 property_number 并更新 property 记录的 homeowner_user_id
         Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            property.setHomeowner(savedUser);
+            property.setuser(savedUser);
             propertyRepository.save(property);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
