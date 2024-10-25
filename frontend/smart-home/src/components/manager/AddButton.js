@@ -5,13 +5,11 @@ const AddButton = ({ addHomeowner }) => {
 
   // 初始表单数据状态
   const initialFormData = {
-    name: '',
-    room: '',
+    username: '',
     email: '',
-    phone: '',
-    date: '',
+    room: '',
+    number: '',
     status: '',
-    rentPaid: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -62,13 +60,36 @@ const AddButton = ({ addHomeowner }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 调用父组件的 addHomeowner 函数，添加新住户
-    addHomeowner(formData);
-    setFormData(initialFormData);
-    setShowModal(false);
+    const userId = 2; // Replace this with the actual userId that you need to pass
+    const formDataWithStatus = {
+      username: formData.username,
+      email: formData.email,
+      room: formData.room,
+      number: formData.number,
+      status: formData.status === "Active" ? 1 : 0, // Convert status
+    };
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/addresident?userId=${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formDataWithStatus),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add homeowner');
+      }
+      // addHomeowner(formDataWithStatus);
+      // setFormData(initialFormData);
+      // setShowModal(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   return (
     <>
@@ -90,7 +111,7 @@ const AddButton = ({ addHomeowner }) => {
             <h2>Add New Resident</h2>
             <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit}>
               <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Name</label>
-              <input type="text" name="name" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.name} onChange={handleChange} required />
+              <input type="text" name="username" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.username} onChange={handleChange} required />
 
               <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Room</label>
               <input type="text" name="room" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.room} onChange={handleChange} required />
@@ -99,23 +120,13 @@ const AddButton = ({ addHomeowner }) => {
               <input type="email" name="email" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.email} onChange={handleChange} required />
 
               <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Phone Number</label>
-              <input type="tel" name="phone" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.phone} onChange={handleChange} required />
-
-              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Date</label>
-              <input type="datetime-local" name="date" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.date} onChange={handleChange} required lang="en" />
+              <input type="tel" name="number" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.number} onChange={handleChange} required />
 
               <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Status</label>
               <select name="status" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.status} onChange={handleChange} required>
                 <option value="">Select Status</option>
                 <option value="Active">Active</option>
                 <option value="No Active">No Active</option>
-              </select>
-
-              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Rent Paid</label>
-              <select name="rentPaid" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.rentPaid} onChange={handleChange} required>
-                <option value="">Select Rent Paid</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
               </select>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
