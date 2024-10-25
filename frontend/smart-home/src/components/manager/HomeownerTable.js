@@ -61,9 +61,7 @@ const HomeownerTable = ({ homeowners }) => {
             <th style={thStyle}>Room</th>
             <th style={thStyle}>Email</th>
             <th style={thStyle}>Phone Number</th>
-            <th style={thStyle}>Date</th>
             <th style={thStyle}>Status</th>
-            <th style={thStyle}>Rent Paid</th>
             <th style={thStyle}>Actions</th>
           </tr>
         </thead>

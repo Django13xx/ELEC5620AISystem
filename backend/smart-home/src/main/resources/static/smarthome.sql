@@ -15,7 +15,10 @@ CREATE TABLE user (
                       email VARCHAR(100) NOT NULL,
                       password VARCHAR(100) NOT NULL,
                       role ENUM('property_manager', 'homeowner', 'resident', 'visitor') NOT NULL,
-                      parent_id INT DEFAULT 0
+                      parent_id INT DEFAULT 0,
+                      room VARCHAR(50),
+                      number VARCHAR(20),
+                      status INT
 );
 
 -- 创建环境表
