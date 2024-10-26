@@ -11,8 +11,6 @@ import HomePage from './pages/homeowner/HomePage';
 import UserPage from './pages/user/UserPage';
 
 
-
-
 function App() {
 
   return (
