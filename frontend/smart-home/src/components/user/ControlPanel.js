@@ -73,12 +73,15 @@ function ControlPanel() {
   return (
     <div className="control-panel">
       <h2>Control Panel</h2>
-      <p>Current Temperature: {temperature} °C</p>
-      <TemperatureSwitch temperature={temperature} onTemperatureChange={handleTemperatureChange} />
+
+      <div className="dropdown">
+        <h4>Temperature</h4>
+        <TemperatureSwitch temperature={temperature} onTemperatureChange={handleTemperatureChange} />
+      </div>
 
       <div className="dropdown">
         <h4>Music Type</h4>
-        <select value={musicType} onChange={handleMusicChange}>
+        <select value={musicType} onChange={handleMusicChange} className="dropdown-select">
           <option value={1}>Lyrical Song 1</option>
           <option value={2}>Lyrical Song 2</option>
           <option value={3}>Lyrical Song 3</option>
@@ -104,7 +107,7 @@ function ControlPanel() {
 
       <div className="dropdown">
         <h4>Fragrance Type</h4>
-        <select value={fragranceType} onChange={handleFragranceChange}>
+        <select value={fragranceType} onChange={handleFragranceChange} className="dropdown-select">
           <option value={1}>Fragrance 1</option>
           <option value={2}>Fragrance 2</option>
           <option value={3}>Fragrance 3</option>
@@ -116,27 +119,18 @@ function ControlPanel() {
 
       <div className="input-container">
         <h4>User Input</h4>
-        <input 
-          type="text" 
-          value={userInput} 
-          onChange={handleInputChange} 
-          placeholder="Enter your text here" 
+        <input
+          type="text"
+          value={userInput}
+          onChange={handleInputChange}
+          placeholder="Enter your text here"
+          className="input-field"
         />
       </div>
 
       <button className="process-button" onClick={handleProcessText}>
         Process Text
       </button>
-
-      {response && (
-        <div className="response-container">
-          <h4>Response:</h4>
-          <p><strong>Air Conditioning Temperature:</strong> {response.airConditioningTemperature} °C</p>
-          <p><strong>Light Control:</strong> {response.lightControl}</p>
-          <p><strong>Music Type:</strong> {response.musicType}</p>
-          <p><strong>Fragrance Type:</strong> {response.fragranceType}</p>
-        </div>
-      )}
     </div>
   );
 }
