@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96a0a170-6edf-4527-bb33-bbf885304be4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smart-home/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/smart-home/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +52,19 @@
   }
 }</component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="backend" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="backend" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SmartHomeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="smart-home" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.smarthome.SmartHomeApplication" />
@@ -83,6 +97,8 @@
       <workItem from="1729917217106" duration="133000" />
       <workItem from="1729917357564" duration="151000" />
       <workItem from="1729917512606" duration="11000" />
+      <workItem from="1729917526487" duration="54000" />
+      <workItem from="1729917583103" duration="47000" />
     </task>
     <servers />
   </component>
