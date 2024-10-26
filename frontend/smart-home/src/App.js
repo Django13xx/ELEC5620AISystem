@@ -20,6 +20,8 @@ import SecurityPage from './pages/security/SecurityPage';
 
 
 
+
+
 function App() {
 
   return (
@@ -38,6 +40,8 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/security" element={<SecurityPage /> } />
+      
+
         </Routes>
       </Router>
     </div>
