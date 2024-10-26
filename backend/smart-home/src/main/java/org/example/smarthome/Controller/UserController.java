@@ -1,4 +1,5 @@
 package org.example.smarthome.Controller;
+import jakarta.transaction.Transactional;
 import org.example.smarthome.Entity.Property;
 import org.example.smarthome.Repository.PropertyRepository;
 import org.example.smarthome.Repository.UserRepository;
@@ -87,15 +88,20 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteresident")
+    @Transactional
     public ResponseEntity<String> deleteResident(@RequestParam int userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent() && user.get().getRole() == User.Role.RESIDENT) {
+            // 删除与该用户相关的property数据
+            propertyRepository.deleteByUser_UserId(userId);
+            // 删除用户记录
             userRepository.deleteById(userId);
             return new ResponseEntity<>("Resident deleted successfully", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Resident not found or role mismatch", HttpStatus.NOT_FOUND);
         }
     }
+
 
     @DeleteMapping("/deletehomeowner")
     public ResponseEntity<String> deleteHomeOwner(@RequestParam int userId) {

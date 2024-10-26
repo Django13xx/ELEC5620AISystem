@@ -12,4 +12,6 @@ public interface PropertyRepository extends JpaRepository<Property, Integer> {
     List<Property> findByUser_UserId(int userId);
 
     List<Property> findByPropertyNumber(int propertyNumber);
+
+    void deleteByUser_UserId(int userId);
 }
