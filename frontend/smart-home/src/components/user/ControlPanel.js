@@ -72,7 +72,6 @@ function ControlPanel() {
   return (
     <div className="control-panel">
       <h2>Control Panel</h2>
-
       <div className="dropdown">
         <h4>Temperature</h4>
         <TemperatureSwitch temperature={temperature} onTemperatureChange={handleTemperatureChange} />

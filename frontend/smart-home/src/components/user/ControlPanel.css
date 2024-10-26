@@ -7,8 +7,16 @@
   }
   
   h2 {
-    font-size: 24px;
-    color: #333;
+    font-size: 28px; /* 更大的字体 */
+    color: #007bff; /* 使用主色调 */
+    font-weight: bold; /* 加粗文本 */
+    text-align: center; /* 居中对齐 */
+    margin-bottom: 20px; /* 下方留白 */
+    padding: 10px 0; /* 上下内边距 */
+    border-bottom: 2px solid #007bff; /* 下方边框，增强视觉效果 */
+    border-radius: 5px; /* 圆角效果 */
+    background-color: rgba(0, 123, 255, 0.1); /* 背景色，增加层次感 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影效果 */
   }
   
   .dropdown {

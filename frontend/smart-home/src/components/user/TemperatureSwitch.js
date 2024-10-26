@@ -16,7 +16,6 @@ function TemperatureSwitch({ temperature, onTemperatureChange }) {
 
   return (
     <div className="temperature-switch">
-      <h4>Adjust Temperature:</h4>
       <button 
         onClick={decreaseTemperature} 
         disabled={temperature <= 16} // 当温度<=16时禁用按钮

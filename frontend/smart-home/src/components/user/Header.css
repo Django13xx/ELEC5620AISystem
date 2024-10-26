@@ -21,3 +21,15 @@
     margin: 0;
     font-size: 14px;
   }
+
+  h3 {
+    font-size: 32px; /* 更大的字体 */
+    color: #ff5733; /* 使用鲜艳的颜色以突出显示 */
+    font-weight: bold; /* 加粗文本 */
+    text-align: center; /* 居中对齐 */
+    margin: 15px 0; /* 上下留白 */
+    padding: 10px; /* 内边距 */
+    border-radius: 5px; /* 圆角效果 */
+    background-color: rgba(255, 87, 51, 0.1); /* 背景色，增加层次感 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* 轻微阴影效果 */
+  }
