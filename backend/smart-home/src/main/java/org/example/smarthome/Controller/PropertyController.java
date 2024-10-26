@@ -1,6 +1,7 @@
 package org.example.smarthome.Controller;
 
 import org.example.smarthome.Entity.Property;
+import org.example.smarthome.Entity.User;
 import org.example.smarthome.Repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,22 @@ public class PropertyController {
         }
     }
 
-    
+    @GetMapping("/getbypropertynumber")
+    public ResponseEntity<List<User>> getUsersByPropertyNumberAndLease(@RequestParam int propertyNumber) {
+        List<Property> properties = propertyRepository.findByPropertyNumber(propertyNumber);
+        List<User> users = new ArrayList<>();
+
+        for (Property property : properties) {
+            if (property.getRelationship() == Property.Relationship.LEASE) {
+                users.add(property.getuser());
+            }
+        }
+
+        if (!users.isEmpty()) {
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        }
+    }
 }
