@@ -25,7 +25,7 @@ CREATE TABLE user (
 CREATE TABLE environment (
                              environment_id INT AUTO_INCREMENT PRIMARY KEY,
                              ac_temperature INT NOT NULL,
-                             curtain_status INT NOT NULL,
+                             light_status INT NOT NULL,
                              music_track INT,
                              fragrance_type INT
 );
@@ -45,7 +45,7 @@ INSERT INTO user (username, email, password, role, parent_id, number, status) VA
                                                                                   ('homeowner1', 'homeowner1@example.com', 'password2', 'HOMEOWNER', 1, '0987654321', 1),
                                                                                   ('resident1', 'resident1@example.com', 'password3', 'RESIDENT', 2, '1122334455', 1);
 
-INSERT INTO environment (ac_temperature, curtain_status, music_track, fragrance_type) VALUES
+INSERT INTO environment (ac_temperature, light_status, music_track, fragrance_type) VALUES
                                                                                           (23, 1, 1, 1),
                                                                                           (25, 0, 2, 2);
 

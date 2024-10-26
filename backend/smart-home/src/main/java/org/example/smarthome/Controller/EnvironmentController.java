@@ -31,14 +31,14 @@ public class EnvironmentController {
 
             // 从响应中提取整数值
             int acTemperature = responseJson.get("airConditioningTemperature").asInt();
-            int curtainStatus = responseJson.get("curtainStatus").asInt();
+            int lightStatus = responseJson.get("lightControl").asInt();
             int musicType = responseJson.get("musicType").asInt();
             int fragranceType = responseJson.get("fragranceType").asInt();
 
             // 创建 Environment 对象并存入数据库
             Environment environment = new Environment();
             environment.setAcTemperature(acTemperature);
-            environment.setCurtainStatus(curtainStatus);
+            environment.setLightStatus(lightStatus);
             environment.setMusicTrack(musicType);
             environment.setFragranceType(fragranceType);
 

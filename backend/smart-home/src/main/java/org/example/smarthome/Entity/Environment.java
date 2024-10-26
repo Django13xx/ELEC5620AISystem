@@ -13,7 +13,7 @@ public class Environment {
     private int acTemperature;
 
     @Column(nullable = false)
-    private int curtainStatus;
+    private int lightStatus;
 
     @Column
     private Integer musicTrack;
@@ -23,10 +23,10 @@ public class Environment {
 
     public Environment() {}
 
-    public Environment(int environmentId, int acTemperature, int curtainStatus, Integer musicTrack, Integer fragranceType) {
+    public Environment(int environmentId, int acTemperature, int lightStatus, Integer musicTrack, Integer fragranceType) {
         this.environmentId = environmentId;
         this.acTemperature = acTemperature;
-        this.curtainStatus = curtainStatus;
+        this.lightStatus = lightStatus;
         this.musicTrack = musicTrack;
         this.fragranceType = fragranceType;
     }
@@ -48,12 +48,12 @@ public class Environment {
         this.acTemperature = acTemperature;
     }
 
-    public int getCurtainStatus() {
-        return curtainStatus;
+    public int getLightStatus() {
+        return lightStatus;
     }
 
-    public void setCurtainStatus(int curtainStatus) {
-        this.curtainStatus = curtainStatus;
+    public void setLightStatus(int lightStatus) {
+        this.lightStatus = lightStatus;
     }
 
     public Integer getMusicTrack() {
