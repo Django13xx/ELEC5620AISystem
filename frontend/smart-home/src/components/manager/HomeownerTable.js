@@ -3,12 +3,12 @@ import HomeownerRow from './HomeownerRow';
 import AddButton from './AddButton';
 
 const HomeownerTable = ({ userId }) => {
-  // 居民列表的状态管理
+
   const [homeowners, setHomeowners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 样式定义
+
   const containerStyle = {
     maxWidth: '1200px',
     margin: '0 auto',

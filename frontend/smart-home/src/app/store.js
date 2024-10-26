@@ -17,6 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     // contributions: contributionSlice,
     user: userSlice,
+    // homeowner: homeownerReducer,
     // characters: characterReducer,
     // userInfo: userInfoSlice,
 

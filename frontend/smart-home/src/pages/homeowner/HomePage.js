@@ -1,6 +1,8 @@
 import React from 'react';
-import Navbar from '../../components/manager/Navbar';
-import PropertyCards from '../../components/manager/PropertyCards';
+import Navbar from '../../components/homeowner/Navbar';
+import PropertyCards from '../../components/homeowner/PropertyCards';
+
+
 import './HomePage.css';
 
 const HomeownerPage = () => {

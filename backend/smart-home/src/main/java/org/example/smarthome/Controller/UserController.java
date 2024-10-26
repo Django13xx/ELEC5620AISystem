@@ -47,7 +47,7 @@ public class UserController {
 
 
     @PostMapping("/addresident")
-    public ResponseEntity<User> addResident(@RequestParam int userId, @RequestParam int propertyId, @RequestBody User user) {
+    public ResponseEntity<User> addResident(@RequestParam int userId, @RequestParam int propertyNumber, @RequestBody User user) {
         user.setRole(User.Role.RESIDENT);
         user.setParentId(userId);
         user.setPassword("resident" + user.getNumber());
@@ -55,17 +55,12 @@ public class UserController {
         User savedUser = userRepository.save(user);
 
         // 获取 property_number 并插入一条新的 property 记录
-        Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
-        if (propertyOptional.isPresent()) {
-            Property property = propertyOptional.get();
-            Property newProperty = new Property();
-            newProperty.setPropertyNumber(property.getPropertyNumber());
-            newProperty.setuser(savedUser);
-            newProperty.setRelationship(Property.Relationship.LEASE);
-            propertyRepository.save(newProperty);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+        Property newProperty = new Property();
+        newProperty.setPropertyNumber(propertyNumber);
+        newProperty.setuser(savedUser);
+        newProperty.setRelationship(Property.Relationship.LEASE);
+        propertyRepository.save(newProperty);
 
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }

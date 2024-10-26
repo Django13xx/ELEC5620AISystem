@@ -8,7 +8,7 @@ function Header() {
       <div className="weather-info">
         <div className="weather-icon">☀️</div>
         <div className="weather-details">
-          <h2>28°C</h2>
+          <h3>28°C</h3>
           <p>Sunny</p>
           <p>Sydney</p>
         </div>
