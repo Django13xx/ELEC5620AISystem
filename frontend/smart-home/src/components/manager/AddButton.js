@@ -5,11 +5,10 @@ const AddButton = ({ addHomeowner }) => {
 
   // 初始表单数据状态
   const initialFormData = {
-    name: '',
-    address: '',
+    username: '',
     email: '',
-    phone: '',
-    dateAdded: '',
+    room: '',
+    number: '',
     status: '',
   };
 
@@ -49,98 +48,8 @@ const AddButton = ({ addHomeowner }) => {
     setFormData(initialFormData);
   };
 
-  // 添加重置表单的函数
   const handleReset = () => {
     setFormData(initialFormData);
-  };
-
-  // 模态框样式
-  const modalOverlayStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // 半透明背景
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1000,
-  };
-
-  const modalContentStyle = {
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '4px',
-    width: '800px', // 增加宽度
-    maxWidth: '90%',
-    boxSizing: 'border-box',
-    position: 'relative',
-  };
-
-  const closeButtonStyle = {
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
-    backgroundColor: '#f44336',
-    color: '#fff',
-    border: 'none',
-    padding: '0',
-    cursor: 'pointer',
-    borderRadius: '50%',
-    width: '30px',
-    height: '30px',
-    fontSize: '20px',
-    lineHeight: '30px',
-    textAlign: 'center',
-  };
-
-  const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-  };
-
-  const labelStyle = {
-    margin: '10px 0 5px',
-    fontSize: '16px',
-  };
-
-  const inputStyle = {
-    padding: '8px',
-    fontSize: '16px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-  };
-
-  const selectStyle = {
-    ...inputStyle,
-  };
-
-  const formButtonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: '20px',
-  };
-
-  const formButtonStyle = {
-    padding: '10px 20px',
-    fontSize: '16px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    marginLeft: '10px',
-  };
-
-  const saveButtonStyle = {
-    ...formButtonStyle,
-    backgroundColor: '#2196F3',
-    color: '#fff',
-  };
-
-  const cancelButtonStyle = {
-    ...formButtonStyle,
-    backgroundColor: '#f44336',
-    color: '#fff',
   };
 
   const handleChange = (e) => {
@@ -151,15 +60,36 @@ const AddButton = ({ addHomeowner }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 调用父组件的 addHomeowner 函数，添加新房主
-    addHomeowner(formData);
-    // 重置表单数据
-    setFormData(initialFormData);
-    // 关闭模态框
-    setShowModal(false);
+    const userId = 2; // Replace this with the actual userId that you need to pass
+    const formDataWithStatus = {
+      username: formData.username,
+      email: formData.email,
+      room: formData.room,
+      number: formData.number,
+      status: formData.status === "Active" ? 1 : 0, // Convert status
+    };
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/addresident?userId=${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formDataWithStatus),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add homeowner');
+      }
+      // addHomeowner(formDataWithStatus);
+      // setFormData(initialFormData);
+      // setShowModal(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   return (
     <>
@@ -169,90 +99,41 @@ const AddButton = ({ addHomeowner }) => {
         onMouseLeave={handleMouseLeave}
         onClick={handleButtonClick}
       >
-        + Add new homeowner
+        + Add New Resident
       </button>
 
       {showModal && (
-        <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
-            <button style={closeButtonStyle} onClick={handleCloseModal}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
+          <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '4px', width: '800px', maxWidth: '90%', boxSizing: 'border-box', position: 'relative' }}>
+            <button style={{ position: 'absolute', top: '10px', right: '10px', backgroundColor: '#f44336', color: '#fff', border: 'none', padding: '0', cursor: 'pointer', borderRadius: '50%', width: '30px', height: '30px', fontSize: '20px', lineHeight: '30px', textAlign: 'center' }} onClick={handleCloseModal}>
               &times;
             </button>
-            <h2>Add New Homeowner</h2>
-            <form style={formStyle} onSubmit={handleSubmit}>
-              <label style={labelStyle}>Name</label>
-              <input
-                type="text"
-                name="name"
-                style={inputStyle}
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
+            <h2>Add New Resident</h2>
+            <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit}>
+              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Name</label>
+              <input type="text" name="username" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.username} onChange={handleChange} required />
 
-              <label style={labelStyle}>Address</label>
-              <input
-                type="text"
-                name="address"
-                style={inputStyle}
-                value={formData.address}
-                onChange={handleChange}
-                required
-              />
+              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Room</label>
+              <input type="text" name="room" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.room} onChange={handleChange} required />
 
-              <label style={labelStyle}>Email</label>
-              <input
-                type="email"
-                name="email"
-                style={inputStyle}
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Email</label>
+              <input type="email" name="email" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.email} onChange={handleChange} required />
 
-              <label style={labelStyle}>Phone Number</label>
-              <input
-                type="tel"
-                name="phone"
-                style={inputStyle}
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
+              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Phone Number</label>
+              <input type="tel" name="number" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.number} onChange={handleChange} required />
 
-              <label style={labelStyle}>Date Added</label>
-              <input
-                type="datetime-local"
-                name="dateAdded"
-                style={inputStyle}
-                value={formData.dateAdded}
-                onChange={handleChange}
-                required
-                lang="en" // 设置语言为英文
-              />
-
-              <label style={labelStyle}>Status</label>
-              <select
-                name="status"
-                style={selectStyle}
-                value={formData.status}
-                onChange={handleChange}
-                required
-              >
+              <label style={{ margin: '10px 0 5px', fontSize: '16px' }}>Status</label>
+              <select name="status" style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }} value={formData.status} onChange={handleChange} required>
                 <option value="">Select Status</option>
                 <option value="Active">Active</option>
                 <option value="No Active">No Active</option>
               </select>
 
-              <div style={formButtonContainerStyle}>
-                <button
-                  type="button"
-                  style={cancelButtonStyle}
-                  onClick={handleReset}
-                >
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+                <button type="button" style={{ padding: '10px 20px', fontSize: '16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '10px', backgroundColor: '#f44336', color: '#fff' }} onClick={handleReset}>
                   Cancel
                 </button>
-                <button type="submit" style={saveButtonStyle}>
+                <button type="submit" style={{ padding: '10px 20px', fontSize: '16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '10px', backgroundColor: '#2196F3', color: '#fff' }}>
                   Save
                 </button>
               </div>
