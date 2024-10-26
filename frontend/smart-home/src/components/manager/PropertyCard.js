@@ -14,11 +14,11 @@ const PropertyCards = () => {
           if (response.ok) {
             const data = await response.json();
             setProperties(data.map(item => ({
-              propertyId: item.property.propertyId,
-              propertyNumber: item.property.propertyNumber,
-              user: item.property.user,
-              isLeased: item.isLeased
-            })));
+  propertyId: item.property.propertyId,
+  propertyNumber: item.property.propertyNumber,
+  user: item.property.user,
+  isLeased: item.isLeased
+})));
           } else {
             console.error('Failed to fetch properties');
           }
@@ -49,14 +49,11 @@ const PropertyCards = () => {
 
     const handleViewResidents = async (propertyNumber) => {
       try {
-        const response = await fetch(`http://localhost:8080/api/property/getbypropertynumber?propertyNumber=${propertyNumber}`);
+        const userId = 2; // 假设使用的用户ID是1，可以根据实际情况动态设置
+        const response = await fetch(`http://localhost:8080/api/user/children?userId=${userId}`);
         if (response.ok) {
-          const data = await response.json();
-          setSelectedResidents(data.map(resident => ({
-            username: resident.username,
-            email: resident.email,
-            number: resident.number,
-          })));
+          const children = await response.json();
+          setSelectedResidents(children);
         } else {
           console.error('Failed to fetch residents');
           setSelectedResidents([]);
@@ -106,17 +103,7 @@ const PropertyCards = () => {
               }}
             >
               <h3 style={{ marginBottom: '20px' }}>Room: {property.propertyNumber}</h3>
-              <button onClick={() => handleViewResidents(property.propertyNumber)} style={{
-                marginTop: 'auto',
-                padding: '10px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                backgroundColor: '#007bff',
-                color: '#fff',
-                border: 'none',
-                fontWeight: 'bold',
-                transition: 'background-color 0.3s ease',
-              }}>View Residents</button>
+              <button onClick={() => handleViewResidents(property.propertyNumber)} style={{ marginTop: 'auto', padding: '10px', borderRadius: '8px', cursor: 'pointer' }}>View Residents</button>
             </div>
           ))}
         </div>
@@ -134,7 +121,7 @@ const PropertyCards = () => {
             {selectedResidents.length > 0 ? (
               <ul>
                 {selectedResidents.map((resident, index) => (
-                  <li key={`${resident.username}-${index}`} style={{ marginBottom: '10px' }}>
+              <li key={`${resident.userId}-${index}`} style={{ marginBottom: '10px' }}>
                     <strong>Username:</strong> {resident?.username || 'N/A'} <br />
                     <strong>Email:</strong> {resident?.email || 'N/A'} <br />
                     <strong>Number:</strong> {resident?.number || 'N/A'}

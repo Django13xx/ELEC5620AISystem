@@ -1,74 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ManagerRow from './ManagerRow';
-import AddButton from './AddButton';
+import LogoutButton from '../public/LogoutButton'; // 导入 LogoutButton
+import { getChildrenByUserId, getPropertiesByUserId } from '../services/homeownerService';
 
-const ManagerTable = ({ managers }) => {
+const ManagerTable = ({ userId, setUserId }) => {
+  const [managers, setManagers] = useState([]);
 
-  const containerStyle = {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-  };
+  const fetchManagers = useCallback(async () => {
+    try {
+      // 获取子用户的 ID 列表
+      const childrenResponse = await getChildrenByUserId(userId);
+      const childrenIds = childrenResponse.data.map(child => child.userId);
 
-  const headerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '20px',
-  };
+      // 父用户的 ID 列表包含自身
+      const allUserIds = [userId, ...childrenIds];
 
-  const titleStyle = {
-    fontSize: '28px',
-    margin: 0,
-  };
+      // 获取所有用户的 Property
+      const propertyPromises = allUserIds.map((id) => getPropertiesByUserId(id));
+      const propertyResponses = await Promise.all(propertyPromises);
 
-  const subtitleStyle = {
-    fontSize: '16px',
-    color: '#888',
-  };
+      // 合并所有 Property 的数据
+      const allProperties = propertyResponses.flatMap((response) => response.data);
 
-  const tableStyle = {
-    width: '100%',
-    borderCollapse: 'collapse',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-  };
+      setManagers(allProperties);
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  }, [userId]);
 
-  const thStyle = {
-    backgroundColor: '#f5f5f5',
-    padding: '12px',
-    textAlign: 'left',
-    fontWeight: 'bold',
-    borderBottom: '2px solid #ddd',
-  };
+  useEffect(() => {
+    if (userId) {
+      fetchManagers();
+    }
+  }, [userId, fetchManagers]);
 
   return (
-    <div style={containerStyle}>
-
-      <div style={headerStyle}>
+    <div className="max-w-6xl mx-auto p-5 font-sans">
+      <div className="flex justify-between items-center mb-5">
         <div>
-          <h2 style={titleStyle}>List of Homeowners</h2>
-          <p style={subtitleStyle}>{managers.length} managers found</p>
+          <h2 className="text-3xl font-bold">List of Properties Managed</h2>
+          <p className="text-gray-500">{managers.length} properties found</p>
         </div>
-        <AddButton />
+        <LogoutButton onLogout={() => setUserId(null)} /> {/* 使用 LogoutButton */}
       </div>
 
-
-      <table style={tableStyle}>
+      <table className="w-full border-collapse shadow-md">
         <thead>
-          <tr>
-            <th style={thStyle}>Name</th>
-            <th style={thStyle}>Address</th>
-            <th style={thStyle}>Email</th>
-            <th style={thStyle}>Phone Number</th>
-            <th style={thStyle}>Date Added</th>
-            <th style={thStyle}>Status</th>
-            <th style={thStyle}>Actions</th>
+          <tr className="bg-gray-100">
+            <th className="p-3 text-left font-bold border-b">Property Number</th>
+            <th className="p-3 text-left font-bold border-b">Username</th>
+            <th className="p-3 text-left font-bold border-b">Email</th>
+            <th className="p-3 text-left font-bold border-b">Phone Number</th>
+            <th className="p-3 text-left font-bold border-b">Status</th>
+            <th className="p-3 text-left font-bold border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
           {managers.map((manager) => (
-            <ManagerRow key={manager.email} manager={manager} />
+            <ManagerRow
+              key={manager.property.propertyId}
+              manager={manager}
+              userId={userId}
+              refreshManagers={fetchManagers} // 传递刷新函数
+            />
           ))}
         </tbody>
       </table>
