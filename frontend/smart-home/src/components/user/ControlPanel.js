@@ -7,6 +7,7 @@ function ControlPanel() {
   const [temperature, setTemperature] = useState(22); // Default temperature
   const [musicType, setMusicType] = useState(1); // Default music type
   const [fragranceType, setFragranceType] = useState(1); // Default fragrance type
+  const [lightStatus, setLightStatus] = useState(0); // Default light status
   const [userInput, setUserInput] = useState(''); // State for user input
   const [response, setResponse] = useState(null); // State for API response
 
@@ -33,18 +34,39 @@ function ControlPanel() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userInput), // Send user input to backend
+        body: JSON.stringify({ userInput }), // 如果后端需要一个对象
       });
+
+      console.log('Response status:', res.status); // Log the response status for debugging
 
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
 
       const data = await res.json();
-      setResponse(data); // Store the response from backend
+
+      // 在这里输出从后端拿到的内容
+      console.log('Response data:', data); // Log the response data for debugging
+
+      // 从 JSON 对象中提取值
+      const newTemperature = data.acTemperature;
+      const newMusicType = data.musicType;
+      const newFragranceType = data.fragranceType;
+      const newLightStatus = data.lightStatus; 
+
+      // 更新状态
+      setTemperature(newTemperature);
+      setMusicType(newMusicType);
+      setFragranceType(newFragranceType);
+      setLightStatus(newLightStatus); 
+
+      // 清空用户输入和响应状态
+      setUserInput('');
+      setResponse(null);
+
     } catch (error) {
       console.error('Error:', error);
-      setResponse({ error: 'An error occurred while processing your request.' }); // Update response to an object
+      setResponse({ error: 'An error occurred while processing your request.' });
     }
   };
 
@@ -90,10 +112,8 @@ function ControlPanel() {
         </select>
       </div>
 
-      {/* LightSwitch component can be added here if needed */}
-      <LightSwitch />
+      <LightSwitch lightStatus={lightStatus} onLightStatusChange={setLightStatus} />
 
-      {/* User Input Section */}
       <div className="input-container">
         <h4>User Input</h4>
         <input 
@@ -104,12 +124,10 @@ function ControlPanel() {
         />
       </div>
 
-      {/* Button to process text */}
       <button className="process-button" onClick={handleProcessText}>
         Process Text
       </button>
 
-      {/* Display API Response */}
       {response && (
         <div className="response-container">
           <h4>Response:</h4>
