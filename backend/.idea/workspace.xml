@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96a0a170-6edf-4527-bb33-bbf885304be4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/smart-home/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/smart-home/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +100,8 @@
       <workItem from="1729917583103" duration="62000" />
       <workItem from="1729917647794" duration="12000" />
       <workItem from="1729917666779" duration="20000" />
-      <workItem from="1729917689820" duration="50000" />
+      <workItem from="1729917689820" duration="88000" />
+      <workItem from="1729917780343" duration="7000" />
     </task>
     <servers />
   </component>
