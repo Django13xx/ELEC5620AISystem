@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/manager/Navbar';
-import PropertyCards from '../../components/manager/PropertyCards';
+import PropertyCard from '../../components/manager/PropertyCard';
 import './MHomePage.css';
 
 const HomeownerPage = () => {
@@ -8,8 +8,7 @@ const HomeownerPage = () => {
     <div className="homeowner-page">
       <Navbar />
       <div className="main-content">
-        {/* <Sidebar /> */}
-        <HomeownerTable homeowners={homeowners} />
+        <PropertyCard />
       </div>
     </div>
   );
