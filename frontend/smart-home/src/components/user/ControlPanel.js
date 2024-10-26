@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ControlPanel.css';
 import TemperatureSwitch from './TemperatureSwitch';
 
@@ -8,7 +8,6 @@ function ControlPanel() {
   const [fragranceType, setFragranceType] = useState(1); // Default fragrance type
   const [lightStatus, setLightStatus] = useState(0); // Default light status
   const [userInput, setUserInput] = useState(''); // State for user input
-  // eslint-disable-next-line
   const [response, setResponse] = useState(null); // State for API response
 
   const handleTemperatureChange = (newTemperature) => {
@@ -38,10 +37,8 @@ function ControlPanel() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userInput }), // 如果后端需要一个对象
+        body: JSON.stringify({ userInput }),
       });
-
-      console.log('Response status:', res.status); // Log the response status for debugging
 
       if (!res.ok) {
         throw new Error('Network response was not ok');
@@ -49,30 +46,28 @@ function ControlPanel() {
 
       const data = await res.json();
 
-      // 在这里输出从后端拿到的内容
-      console.log('Response data:', data); // Log the response data for debugging
+      setTemperature(data.acTemperature);
+      setMusicType(data.musicType);
+      setFragranceType(data.fragranceType);
+      setLightStatus(data.lightStatus);
 
-      // 从 JSON 对象中提取值
-      const newTemperature = data.acTemperature;
-      const newMusicType = data.musicType;
-      const newFragranceType = data.fragranceType;
-      const newLightStatus = data.lightStatus; 
-
-      // 更新状态
-      setTemperature(newTemperature);
-      setMusicType(newMusicType);
-      setFragranceType(newFragranceType);
-      setLightStatus(newLightStatus); 
-
-      // 清空用户输入和响应状态
       setUserInput('');
-      setResponse(null);
-
+      setResponse('Settings updated successfully');
     } catch (error) {
       console.error('Error:', error);
-      setResponse({ error: 'An error occurred while processing your request.' });
+      setResponse('An error occurred while processing your request.');
     }
   };
+
+  // useEffect to clear the response message after a few seconds
+  useEffect(() => {
+    if (response) {
+      const timer = setTimeout(() => {
+        setResponse(null);
+      }, 3000); // Clear message after 3 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [response]);
 
   return (
     <div className="control-panel">
@@ -114,7 +109,7 @@ function ControlPanel() {
         <select value={fragranceType} onChange={handleFragranceChange} className="dropdown-select">
           <option value={1}>Lavender</option>
           <option value={2}>Citrus</option>
-          <option value={3}>Sandalwood</option>
+          <option value={3}>Jasmine</option>
           <option value={4}>Rose</option>
         </select>
       </div>
@@ -124,7 +119,7 @@ function ControlPanel() {
         <select value={lightStatus} onChange={handleLightChange} className="dropdown-select">
           <option value={0}>Off</option>
           <option value={1}>Cold Lights</option>
-          <option value={2}>Warm Light</option>
+          <option value={2}>Warm Lights</option>
         </select>
       </div>
 
@@ -142,6 +137,17 @@ function ControlPanel() {
       <button className="process-button" onClick={handleProcessText}>
         Process Text
       </button>
+
+      {/* Display the response message */}
+      {response && (
+        <div className={`response-message ${response.error ? 'error' : ''}`}>
+          {response.error ? (
+            <i className="fas fa-exclamation-circle"></i> // 错误图标
+          ) : (
+            <i className="fas fa-check-circle"></i> // 成功图标
+          )}
+          <span>{response.error || "Your changes have been saved!"}</span>
+        </div>)}
     </div>
   );
 }

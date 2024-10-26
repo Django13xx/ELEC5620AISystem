@@ -64,3 +64,35 @@
     background-color: #45a049;
   }
   
+/* Response message styling */
+.response-message {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    max-width: 90%;
+    width: 400px;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #28a745; /* Success background color */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Error message styling */
+  .response-message.error {
+    background-color: #dc3545; /* Error background color */
+  }
+  
+  /* Fade-out animation */
+  .response-message.fade-out {
+    opacity: 0;
+  }
