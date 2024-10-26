@@ -1,21 +1,34 @@
-// TemperatureSwitch.js
 import React from 'react';
+import './TemperatureSwitch.css';
 
 function TemperatureSwitch({ temperature, onTemperatureChange }) {
   const increaseTemperature = () => {
-    onTemperatureChange(temperature + 1);
+    if (temperature < 30) { // 设置温度上限为30°C
+      onTemperatureChange(temperature + 1);
+    }
   };
 
   const decreaseTemperature = () => {
-    onTemperatureChange(temperature - 1);
+    if (temperature > 16) { // 设置温度下限为16°C
+      onTemperatureChange(temperature - 1);
+    }
   };
 
   return (
-    <div>
-      <h4>Adjust Temperature:</h4>
-      <button onClick={decreaseTemperature}>-</button>
+    <div className="temperature-switch">
+      <button 
+        onClick={decreaseTemperature} 
+        disabled={temperature <= 16} // 当温度<=16时禁用按钮
+      >
+        -
+      </button>
       <span>{temperature} °C</span>
-      <button onClick={increaseTemperature}>+</button>
+      <button 
+        onClick={increaseTemperature} 
+        disabled={temperature >= 30} // 当温度>=30时禁用按钮
+      >
+        +
+      </button>
     </div>
   );
 }
