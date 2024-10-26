@@ -30,6 +30,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/manager" element={<ManagerPage />} />
+          <Route path="/homepage" element={<HomePage />} />
           <Route path="/add" element={<AddPage />} />
           <Route path="/edit/:id" element={<EditPage />} />
           <Route path="/character/:id" element={<CharacterDetailPage />} />
