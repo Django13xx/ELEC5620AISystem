@@ -15,6 +15,7 @@ import CharacterDetailPage from './pages/manager/CharacterDetailPage';
 import UserInfoPage from './pages/user/UserPage';
 import AdminPage from './pages/manager/AdminPage';
 import UserPage from './pages/user/UserPage';
+import SecurityPage from './pages/security/SecurityPage';
 
 
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/user-info" element={<UserInfoPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/user" element={<UserPage />} />
+          <Route path="/security" element={<SecurityPage /> } />
         </Routes>
       </Router>
     </div>

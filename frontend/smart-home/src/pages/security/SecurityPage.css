@@ -1,0 +1,52 @@
+.dashboard {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pie-chart-container {
+    display: inline-block;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .status-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e3f2fd;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .buildings {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .building {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #00C49F;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .footer {
+    margin-top: 20px;
+  }
+  
+  .footer p {
+    color: #007BFF;
+    font-size: 18px;
+  }
+  
