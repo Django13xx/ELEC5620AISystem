@@ -1,107 +1,27 @@
-/* 整体布局 */
+/* TemperatureSwitch.css */
 .temperature-switch {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 20px;
+  justify-content: center;
 }
 
-/* 开关样式 */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;  /* 开关宽度 */
-  height: 34px; /* 开关高度 */
-}
-
-.switch input {
-  opacity: 0; /* 隐藏实际的 checkbox */
-  width: 0;
-  height: 0;
-}
-
-/* 滑块样式 */
-.slider {
-  position: absolute;
+.temperature-switch button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin: 0 10px;
+  font-size: 16px;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc; /* 默认背景颜色 */
-  transition: 0.4s; /* 动画效果 */
-  border-radius: 34px; /* 圆角 */
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px; /* 滑块高度 */
-  width: 26px;  /* 滑块宽度 */
-  left: 4px;    /* 左边距 */
-  bottom: 4px;  /* 下边距 */
-  background-color: white; /* 滑块颜色 */
-  border-radius: 50%; /* 圆形 */
-  transition: 0.4s; /* 动画效果 */
+.temperature-switch button:hover {
+  background-color: #0056b3;
 }
 
-/* 开关选中状态样式 */
-input:checked + .slider {
-  background-color: #007bff; /* 选中时背景颜色 */
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px); /* 滑块移动效果 */
-}
-
-/* 温度控制样式 */
-.temperature-control {
-  display: flex;
-  align-items: center;
-  margin-top: 10px; /* 上间距 */
-}
-
-/* 滑块样式 */
-input[type="range"] {
-  -webkit-appearance: none; /* 取消默认样式 */
-  width: 100%; /* 填充可用宽度 */
-  height: 8px; /* 轨道高度 */
-  border-radius: 5px; /* 轨道圆角 */
-  background: #ccc; /* 默认轨道颜色（灰色） */
-  outline: none; /* 去掉默认轮廓 */
-}
-
-/* 已滑动部分的样式 */
-input[type="range"]::-webkit-slider-runnable-track,
-input[type="range"]::-moz-range-track {
-  background: #007bff; /* 已滑动部分颜色 */
-  height: 8px; /* 轨道高度 */
-  border-radius: 5px; /* 轨道圆角 */
-}
-
-/* 滑块的样式 */
-input[type="range"]::-webkit-slider-thumb,
-input[type="range"]::-moz-range-thumb,
-input[type="range"]::-ms-thumb {
-  width: 20px; /* 滑块宽度 */
-  height: 20px; /* 滑块高度 */
-  border-radius: 50%; /* 滑块圆形 */
-  background: white; /* 滑块颜色 */
-  cursor: pointer; /* 鼠标样式 */
-}
-
-/* 按钮样式 */
-button {
-  background-color: #007bff; /* 按钮背景色 */
-  color: white; /* 按钮文字颜色 */
-  border: none; /* 去掉边框 */
-  border-radius: 5px; /* 圆角 */
-  padding: 5px 10px; /* 内边距 */
-  cursor: pointer; /* 鼠标悬停时指针样式 */
-  margin: 0 5px; /* 左右间距 */
-}
-
-/* 鼠标悬停时按钮样式 */
-button:hover {
-  background-color: #3e91ea; /* 悬停时背景色 */
+.temperature-switch span {
+  font-size: 20px;
+  margin: 0 10px;
 }

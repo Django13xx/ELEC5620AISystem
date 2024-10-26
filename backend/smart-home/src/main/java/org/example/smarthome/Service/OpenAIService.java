@@ -26,7 +26,7 @@ public class OpenAIService {
 
     public String generateResponse(String prompt) {
         // Reformatting user input prompt to better train the API for a smart home assistant
-        prompt = "You are a smart home assistant. Based on the user's input, perform the following actions: " + "1. Adjust the air conditioning temperature (Celsius). " + "2. Control the light (0 for closed, 1 for Cold light, 2 for Warm light). " + "3. Select music type (1-5 for lyrical songs, 6-10 for light music, 11-15 for dance music, 16-20 for DJ). " + "4. Turn on a fragrance (1-4 for different types of fragrances). " + "Return four integers representing: air conditioning temperature, curtain status, music type, fragrance type. " + prompt;
+        prompt = "You are a smart home assistant. Based on the user's input text, give four integer split by ',',these integers have the following meanings: " + "The first integer is the air conditioning temperature (16 to 30 for different temperature in degrees Celsius). " + "The second integer is the light (0 for closed, 1 for Cold light, 2 for Warm light). " + "The Third integer is for music type (1-5 for lyrical songs, 6-10 for light music, 11-15 for dance music, 16-20 for DJ). " + "The fourth integer is for fragrance (1-4 for different types of fragrances)." + "Please give me the most suitable output based on my input:" + prompt;
         String url = "https://api.openai.com/v1/chat/completions";
 
         HttpHeaders headers = new HttpHeaders();

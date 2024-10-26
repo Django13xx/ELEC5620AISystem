@@ -1,0 +1,27 @@
+/* ControlPanel.css */
+/* 其他样式不变 */
+
+.process-button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .process-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .response-container {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+  }
+  
