@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/property")
@@ -20,12 +23,31 @@ public class PropertyController {
     private PropertyRepository propertyRepository;
 
     @GetMapping("/getbyuserid")
-    public ResponseEntity<List<Property>> getPropertiesByUserId(@RequestParam int userId) {
+    public ResponseEntity<List<Map<String, Object>>> getPropertiesByUserId(@RequestParam int userId) {
         List<Property> properties = propertyRepository.findByUser_UserId(userId);
-        if (!properties.isEmpty()) {
-            return new ResponseEntity<>(properties, HttpStatus.OK);
+        List<Map<String, Object>> propertyListWithLeaseStatus = new ArrayList<>();
+
+        for (Property property : properties) {
+            Map<String, Object> propertyMap = new HashMap<>();
+
+            // 遍历数据库中同样 propertyNumber 的记录，检查是否有 LEASE 关系
+            List<Property> relatedProperties = propertyRepository.findByPropertyNumber(property.getPropertyNumber());
+            boolean isLeased = relatedProperties.stream()
+                    .filter(p -> p != null)
+                    .anyMatch(p -> p.getRelationship() == Property.Relationship.LEASE);
+
+            propertyMap.put("property", property);
+            propertyMap.put("isLeased", isLeased);
+            propertyListWithLeaseStatus.add(propertyMap);
+        }
+
+
+        if (!propertyListWithLeaseStatus.isEmpty()) {
+            return new ResponseEntity<>(propertyListWithLeaseStatus, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    
 }
