@@ -1,18 +1,27 @@
+// RoomTabs.js
 import React, { useState } from 'react';
 import './RoomTabs.css';
 import ControlPanel from './ControlPanel';
 
 function RoomTabs() {
-  const [selectedRoom, setSelectedRoom] = useState('Livingroom');
+  const [temperature, setTemperature] = useState(22); // 初始温度
+
+  const handleTemperatureChange = (newTemperature) => {
+    setTemperature(newTemperature);
+  };
+
+  const handleLightChange = (newLightMode) => {
+    console.log(`Light mode changed to: ${newLightMode}`);
+    // 在这里处理灯光模式的变化，比如更新状态或调用相关API
+  };
 
   return (
     <div>
-      <div className="room-tabs">
-        <button className={selectedRoom === 'Livingroom' ? 'active' : ''} onClick={() => setSelectedRoom('Livingroom')}>Livingroom</button>
-        <button className={selectedRoom === 'Bedroom' ? 'active' : ''}>Bedroom</button>
-        <button className={selectedRoom === 'Kitchen' ? 'active' : ''}>Kitchen</button>
-      </div>
-      {selectedRoom === 'Livingroom' && <ControlPanel />}
+      <ControlPanel 
+        temperature={temperature} 
+        onTemperatureChange={handleTemperatureChange} 
+        onLightChange={handleLightChange} 
+      />
     </div>
   );
 }
