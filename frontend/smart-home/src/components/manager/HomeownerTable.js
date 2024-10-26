@@ -50,8 +50,9 @@ const HomeownerTable = ({ userId }) => {
   // 获取居民数据
   useEffect(() => {
     const fetchResidents = async () => {
+      const userId = 1
       try {
-        const response = await fetch(`http://localhost:8080/api/users/getresidents?userId=${userId}`);
+        const response = await fetch(`http://localhost:8080/api/property/getbyuserid?userId=${userId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch residents');
         }
