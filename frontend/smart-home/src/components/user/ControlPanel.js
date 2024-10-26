@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './ControlPanel.css';
-import LightSwitch from './LightSwitch';
 import TemperatureSwitch from './TemperatureSwitch';
 
 function ControlPanel() {
@@ -9,6 +8,7 @@ function ControlPanel() {
   const [fragranceType, setFragranceType] = useState(1); // Default fragrance type
   const [lightStatus, setLightStatus] = useState(0); // Default light status
   const [userInput, setUserInput] = useState(''); // State for user input
+  // eslint-disable-next-line
   const [response, setResponse] = useState(null); // State for API response
 
   const handleTemperatureChange = (newTemperature) => {
@@ -21,6 +21,10 @@ function ControlPanel() {
 
   const handleFragranceChange = (e) => {
     setFragranceType(Number(e.target.value));
+  };
+
+  const handleLightChange = (e) => {
+    setLightStatus(Number(e.target.value));
   };
 
   const handleInputChange = (e) => {
@@ -82,40 +86,47 @@ function ControlPanel() {
       <div className="dropdown">
         <h4>Music Type</h4>
         <select value={musicType} onChange={handleMusicChange} className="dropdown-select">
-          <option value={1}>Lyrical Song 1</option>
-          <option value={2}>Lyrical Song 2</option>
-          <option value={3}>Lyrical Song 3</option>
-          <option value={4}>Lyrical Song 4</option>
-          <option value={5}>Lyrical Song 5</option>
-          <option value={6}>Light Music 1</option>
-          <option value={7}>Light Music 2</option>
-          <option value={8}>Light Music 3</option>
-          <option value={9}>Light Music 4</option>
-          <option value={10}>Light Music 5</option>
-          <option value={11}>Dance Music 1</option>
-          <option value={12}>Dance Music 2</option>
-          <option value={13}>Dance Music 3</option>
-          <option value={14}>Dance Music 4</option>
-          <option value={15}>Dance Music 5</option>
-          <option value={16}>DJ Music 1</option>
-          <option value={17}>DJ Music 2</option>
-          <option value={18}>DJ Music 3</option>
-          <option value={19}>DJ Music 4</option>
-          <option value={20}>DJ Music 5</option>
+          <option value={1}>Lyrical Song Playlist 1</option>
+          <option value={2}>Lyrical Song Playlist 2</option>
+          <option value={3}>Lyrical Song Playlist 3</option>
+          <option value={4}>Lyrical Song Playlist 4</option>
+          <option value={5}>Lyrical Song Playlist 5</option>
+          <option value={6}>Light Music Playlist 1</option>
+          <option value={7}>Light Music Playlist 2</option>
+          <option value={8}>Light Music Playlist 3</option>
+          <option value={9}>Light Music Playlist 4</option>
+          <option value={10}>Light Music Playlist 5</option>
+          <option value={11}>Dance Music Playlist 1</option>
+          <option value={12}>Dance Music Playlist 2</option>
+          <option value={13}>Dance Music Playlist 3</option>
+          <option value={14}>Dance Music Playlist 4</option>
+          <option value={15}>Dance Music Playlist 5</option>
+          <option value={16}>DJ Music Playlist 1</option>
+          <option value={17}>DJ Music Playlist 2</option>
+          <option value={18}>DJ Music Playlist 3</option>
+          <option value={19}>DJ Music Playlist 4</option>
+          <option value={20}>DJ Music Playlist 5</option>
         </select>
       </div>
 
       <div className="dropdown">
         <h4>Fragrance Type</h4>
         <select value={fragranceType} onChange={handleFragranceChange} className="dropdown-select">
-          <option value={1}>Fragrance 1</option>
-          <option value={2}>Fragrance 2</option>
-          <option value={3}>Fragrance 3</option>
-          <option value={4}>Fragrance 4</option>
+          <option value={1}>Lavender</option>
+          <option value={2}>Citrus</option>
+          <option value={3}>Sandalwood</option>
+          <option value={4}>Rose</option>
         </select>
       </div>
 
-      <LightSwitch lightStatus={lightStatus} onLightStatusChange={setLightStatus} />
+      <div className="dropdown">
+        <h4>Light Status</h4>
+        <select value={lightStatus} onChange={handleLightChange} className="dropdown-select">
+          <option value={0}>Off</option>
+          <option value={1}>Cold Lights</option>
+          <option value={2}>Warm Light</option>
+        </select>
+      </div>
 
       <div className="input-container">
         <h4>User Input</h4>
