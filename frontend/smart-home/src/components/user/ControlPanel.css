@@ -1,106 +1,219 @@
 .control-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    margin-top: 20px;
-  }
-  
-  h2 {
-    font-size: 28px; /* 更大的字体 */
-    color: #007bff; /* 使用主色调 */
-    font-weight: bold; /* 加粗文本 */
-    text-align: center; /* 居中对齐 */
-    margin-bottom: 20px; /* 下方留白 */
-    padding: 10px 0; /* 上下内边距 */
-    border-bottom: 2px solid #007bff; /* 下方边框，增强视觉效果 */
-    border-radius: 5px; /* 圆角效果 */
-    background-color: rgba(0, 123, 255, 0.1); /* 背景色，增加层次感 */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影效果 */
-  }
-  
-  .dropdown {
-    width: 100%;
-    max-width: 400px;
-    margin: 10px 0;
-  }
-  
-  .dropdown h4 {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 5px;
-  }
-  
-  .dropdown-select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    color: #333;
-  }
-  
-  .input-container {
-    width: 100%;
-    max-width: 400px;
-    margin-top: 20px;
-  }
-  
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .process-button {
-    width: 100%;
-    max-width: 200px;
-    padding: 10px;
-    font-size: 18px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .process-button:hover {
-    background-color: #45a049;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  padding: 20px; /* 添加内边距 */
+  border-radius: 8px; /* 圆角效果 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+}
+
+/* Language changing */
+.language-button {
+  padding: 10px 20px; /* 内边距，使按钮更大 */
+  font-size: 16px; /* 字体大小 */
+  color: white; /* 字体颜色 */
+  background-color: #007bff; /* 按钮背景色 */
+  border: none; /* 无边框 */
+  border-radius: 4px; /* 圆角效果 */
+  cursor: pointer; /* 鼠标悬停时变为手型 */
+  transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s; /* 背景颜色渐变、缩放效果和阴影 */
+  margin: 10px 0; /* 上下留白 */
+}
+
+.language-button:hover {
+  background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+  transform: scale(1.05); /* 悬停时轻微放大效果 */
+}
+
+.language-button:focus {
+  outline: none; /* 去掉焦点轮廓 */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 添加焦点时的阴影效果 */
+}
+
+.language-button:active {
+  transform: scale(0.98); /* 按钮按下时缩小 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 按下时阴影效果 */
+}
+
+h2 {
+  font-size: 28px; /* 更大的字体 */
+  color: #007bff; /* 使用主色调 */
+  font-weight: bold; /* 加粗文本 */
+  text-align: center; /* 居中对齐 */
+  margin-bottom: 20px; /* 下方留白 */
+  padding: 10px 0; /* 上下内边距 */
+  border-bottom: 2px solid #007bff; /* 下方边框，增强视觉效果 */
+  border-radius: 5px; /* 圆角效果 */
+  background-color: rgba(0, 123, 255, 0.1); /* 背景色，增加层次感 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影效果 */
+}
+
+.dropdown {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+}
+
+.dropdown h4 {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.dropdown-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: border-color 0.2s; /* 添加边框颜色过渡效果 */
+}
+
+.dropdown-select:hover {
+  border-color: #007bff; /* 鼠标悬停时的边框颜色 */
+}
+
+.dropdown-select:focus {
+  outline: none; /* 去掉焦点轮廓 */
+  border-color: #007bff; /* 焦点时边框颜色 */
+}
+
+.input-container {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* process button stying */
+.process-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s; /* 添加过渡效果 */
+}
+
+.process-button:hover {
+  background-color: #45a049;
+}
+
+.process-button:active {
+  transform: scale(0.98); /* 按钮按下时缩小 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 按下时阴影效果 */
+}
+
+/* recording button styling */
+.record-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 20px;
+  background-color: #4CAF50; /* 与 process button 相同 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s; /* 添加过渡效果 */
+}
+
+.record-button:hover {
+  background-color: #45a049; /* 与 process button 相同 */
+}
+
+.record-button.recording {
+  background-color: #f44336; /* 录音时的显著颜色，例如红色 */
+}
+
+.record-button.recording:hover {
+  background-color: #d32f2f; /* 录音时的悬停颜色 */
+}
+
+.record-button:active {
+  transform: scale(0.98); /* 按钮按下时缩小 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 按下时阴影效果 */
+}
+
+/* button container styling to make two buttons in one line */
+.button-container {
+  display: flex;
+  justify-content: space-between; /* 使按钮两端对齐 */
+  gap: 20px; /* 增加按钮之间的间距 */
+}
+
+.button-container .language-button,
+.button-container .process-button {
+  flex-grow: 1; /* 使按钮在可用空间中平分 */
+  padding: 10px; /* 增加按钮内边距 */
+  min-width: 120px; /* 设置最小宽度，保证按钮不太小 */
+}
+
 /* Response message styling */
 .response-message {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    max-width: 90%;
-    width: 400px;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #28a745; /* Success background color */
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  max-width: 90%;
+  width: 400px;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #28a745; /* Success background color */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.5s; /* 添加出现时的淡入动画 */
+}
+
+/* Error message styling */
+.response-message.error {
+  background-color: #dc3545; /* Error background color */
+}
+
+/* Fade-out animation */
+.response-message.fade-out {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
   }
-  
-  /* Error message styling */
-  .response-message.error {
-    background-color: #dc3545; /* Error background color */
+  to {
+      opacity: 1;
   }
-  
-  /* Fade-out animation */
-  .response-message.fade-out {
-    opacity: 0;
+}
+
+@media (max-width: 600px) {
+  .input-container,
+  .process-button,
+  .language-button {
+      width: 100%; /* 小屏幕上占满宽度 */
+      max-width: none; /* 去掉最大宽度限制 */
   }
+}

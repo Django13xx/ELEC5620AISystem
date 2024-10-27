@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './ControlPanel.css';
 import TemperatureSwitch from './TemperatureSwitch';
 
@@ -9,6 +9,11 @@ function ControlPanel() {
   const [lightStatus, setLightStatus] = useState(0); // Default light status
   const [userInput, setUserInput] = useState(''); // State for user input
   const [response, setResponse] = useState(null); // State for API response
+  const [isRecording, setIsRecording] = useState(false); // Recording status
+  const [transcript, setTranscript] = useState(''); // Transcription of the recorded audio
+  const [language, setLanguage] = useState('en'); // Default language
+
+  const recognitionRef = useRef(null); // Add recognitionRef to keep track of the recognition instance
 
   const handleTemperatureChange = (newTemperature) => {
     setTemperature(newTemperature);
@@ -37,7 +42,7 @@ function ControlPanel() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userInput }),
+        body: JSON.stringify({ userInput: transcript || userInput }),
       });
 
       if (!res.ok) {
@@ -59,6 +64,68 @@ function ControlPanel() {
     }
   };
 
+  const toggleRecording = () => {
+    if (isRecording) {
+      // Stop recording
+      setIsRecording(false);
+      // Stop the speech recognition
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    } else {
+      // Start recording
+      setTranscript(''); // Clear previous transcript
+      setUserInput(''); // Clear user input
+      setIsRecording(true); // Set recording status
+
+      // Start speech recognition
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.lang = language === 'en' ? 'en-US' : 'zh-CN'; // Adjust language
+        recognition.interimResults = false; // We want final results only
+        recognition.maxAlternatives = 1;
+
+        recognitionRef.current = recognition; // Save the recognition instance
+
+        recognition.onresult = (event) => {
+          const transcriptText = event.results[0][0].transcript;
+          setTranscript(transcriptText);
+          setUserInput(transcriptText); // Display transcript in input box
+        };
+
+        recognition.onerror = (error) => {
+          console.error('Speech recognition error:', error);
+          switch (error.error) {
+            case 'no-speech':
+              setResponse('No speech detected. Please try again.');
+              break;
+            case 'audio-capture':
+              setResponse('Audio capture error. Please check your microphone.');
+              break;
+            case 'not-allowed':
+              setResponse('Permission to use microphone is denied.');
+              break;
+            case 'service-not-allowed':
+              setResponse('Speech recognition service is not allowed.');
+              break;
+            default:
+              setResponse('Speech recognition error.');
+          }
+        };
+
+        recognition.onend = () => {
+          setIsRecording(false); // Reset recording status when recognition ends
+        };
+
+        recognition.start(); // Start the recognition
+      } else {
+        setResponse('Speech recognition not supported in this browser.');
+      }
+    }
+  };
+
   // useEffect to clear the response message after a few seconds
   useEffect(() => {
     if (response) {
@@ -69,16 +136,55 @@ function ControlPanel() {
     }
   }, [response]);
 
+  // Language switch function
+  const toggleLanguage = () => {
+    setLanguage((prevLang) => (prevLang === 'en' ? 'zh' : 'en'));
+  };
+
+  // Texts based on the current language
+  const texts = {
+    en: {
+      title: "Control Panel",
+      temperature: "Temperature",
+      musicType: "Music Type",
+      fragranceType: "Fragrance Type",
+      lightStatus: "Light Status",
+      userInput: "User Input",
+      processText: "Process Text",
+      startStopRecording:"Start/Stop Recording",
+      responseSuccess: "Settings updated successfully",
+      responseError: "An error occurred while processing your request.",
+    },
+    zh: {
+      title: "控制面板",
+      temperature: "温度",
+      musicType: "音乐类型",
+      fragranceType: "香水类型",
+      lightStatus: "灯光状态",
+      userInput: "用户输入",
+      processText: "处理文本",
+      startStopRecording:"开始/停止录音",
+      responseSuccess: "设置更新成功",
+      responseError: "处理请求时发生错误。",
+    },
+  };
+
   return (
     <div className="control-panel">
-      <h2>Control Panel</h2>
+      <h2>{texts[language].title}</h2>
+
+      {/* Language toggle button */}
+      <button className="language-button" onClick={toggleLanguage}>
+          {language === 'en' ? 'Switch to 中文' : 'Switch to English'}
+      </button>
+
       <div className="dropdown">
-        <h4>Temperature</h4>
+        <h4>{texts[language].temperature}</h4>
         <TemperatureSwitch temperature={temperature} onTemperatureChange={handleTemperatureChange} />
       </div>
 
       <div className="dropdown">
-        <h4>Music Type</h4>
+        <h4>{texts[language].musicType}</h4>
         <select value={musicType} onChange={handleMusicChange} className="dropdown-select">
           <option value={1}>Lyrical Song Playlist 1</option>
           <option value={2}>Lyrical Song Playlist 2</option>
@@ -104,7 +210,7 @@ function ControlPanel() {
       </div>
 
       <div className="dropdown">
-        <h4>Fragrance Type</h4>
+        <h4>{texts[language].fragranceType}</h4>
         <select value={fragranceType} onChange={handleFragranceChange} className="dropdown-select">
           <option value={1}>Lavender</option>
           <option value={2}>Citrus</option>
@@ -114,7 +220,7 @@ function ControlPanel() {
       </div>
 
       <div className="dropdown">
-        <h4>Light Status</h4>
+        <h4>{texts[language].lightStatus}</h4>
         <select value={lightStatus} onChange={handleLightChange} className="dropdown-select">
           <option value={0}>Off</option>
           <option value={1}>Cold Lights</option>
@@ -123,30 +229,39 @@ function ControlPanel() {
       </div>
 
       <div className="input-container">
-        <h4>User Input</h4>
+        <h4>{texts[language].userInput}</h4>
         <input
           type="text"
-          value={userInput}
+          value={transcript || userInput}
           onChange={handleInputChange}
-          placeholder="Enter your text here"
-          className="input-field"
+          placeholder="Type or say something..."
+          className="user-input"
         />
       </div>
 
-      <button className="process-button" onClick={handleProcessText}>
-        Process Text
-      </button>
+      <div className="button-container">
+        <button onClick={handleProcessText} className="process-button">
+          {texts[language].processText}
+        </button>
 
+        <button
+          onClick={toggleRecording}
+          className={`record-button ${isRecording ? 'recording' : ''}`}
+        >
+          {texts[language].startStopRecording}
+        </button>
+      </div>
       {/* Display the response message */}
       {response && (
         <div className={`response-message ${response.error ? 'error' : ''}`}>
           {response.error ? (
-            <i className="fas fa-exclamation-circle"></i> // 错误图标
+            <i className="fas fa-exclamation-circle"></i>
           ) : (
-            <i className="fas fa-check-circle"></i> // 成功图标
+            <i className="fas fa-check-circle"></i>
           )}
-          <span>{response.error || "Your changes have been saved!"}</span>
-        </div>)}
+          <span>{response.error || texts[language].responseSuccess}</span>
+        </div>
+      )}
     </div>
   );
 }
