@@ -250,6 +250,8 @@ function ControlPanel() {
           {texts[language].startStopRecording}
         </button>
       </div>
+      {/* logout button */}
+      <button className="logout-button" onClick={() => window.location.href = 'http://localhost:3000/login'}>Logout</button>
       {/* Display the response message */}
       {response && (
         <div className={`response-message ${response.error ? 'error' : ''}`}>
