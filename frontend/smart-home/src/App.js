@@ -10,8 +10,6 @@ import ManagerPage from './pages/manager/ManagerPage';
 import HomePage from './pages/homeowner/HomePage';
 import UserPage from './pages/user/UserPage';
 import SecurityPage from './pages/security/SecurityPage';
-
-
 import ResidentPage from './pages/user/ResidentPage';
 
 
@@ -22,6 +20,8 @@ function App() {
       <Router>
         {/* <Header /> */}
         <Routes>
+          {/* redirect "/" to "/login" */}
+          <Route path="/" element={<LoginPage />} />
           <Route path="/manager-home" element={<ManagerPage />} />
           <Route path="/login" element={<LoginPage />} />
 
@@ -31,10 +31,10 @@ function App() {
 
           
           <Route path="/user" element={<UserPage />} />
-          <Route path="/security" element={<SecurityPage /> } />
-      
-
           <Route path="/resident" element={<ResidentPage />} />
+
+
+          <Route path="/security" element={<SecurityPage /> } />
         </Routes>
       </Router>
     </div>

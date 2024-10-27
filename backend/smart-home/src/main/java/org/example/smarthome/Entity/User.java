@@ -101,7 +101,7 @@ public class User {
 
     // Enum for role
     public enum Role {
-        PROPERTY_MANAGER, HOMEOWNER, RESIDENT, VISITOR
+        PROPERTY_MANAGER, HOMEOWNER, RESIDENT, VISITOR, SECURITY
     }
 
 }
