@@ -13,5 +13,7 @@ public interface PropertyRepository extends JpaRepository<Property, Integer> {
 
     List<Property> findByPropertyNumber(int propertyNumber);
 
+    List<Property> findByRelationship(Property.Relationship relationship);
+
     void deleteByUser_UserId(int userId);
 }

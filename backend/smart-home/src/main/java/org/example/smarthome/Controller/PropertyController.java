@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/property")
@@ -19,6 +22,18 @@ public class PropertyController {
 
     @Autowired
     private PropertyRepository propertyRepository;
+
+    @GetMapping("/getallproperty")
+    public ResponseEntity<List<Property>> getAllProperties() {
+        List<Property> properties = propertyRepository.findByRelationship(Property.Relationship.OWN);
+
+        if (!properties.isEmpty()) {
+            return new ResponseEntity<>(properties, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    
 
     @GetMapping("/getbyuserid")
     public ResponseEntity<List<Map<String, Object>>> getPropertiesByUserId(@RequestParam int userId) {
