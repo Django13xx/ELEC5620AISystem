@@ -40,6 +40,21 @@
     color: white;
     font-weight: bold;
   }
+
+  /* Logout Button */
+.logout-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 20px;
+  background-color: #ce2626; /* 与 process button 相同 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s; /* 添加过渡效果 */
+}
   
   .footer {
     margin-top: 20px;

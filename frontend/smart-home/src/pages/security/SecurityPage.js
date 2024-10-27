@@ -69,6 +69,9 @@ const BuildingStatusDashboard = () => {
           <p>Danger</p>
         </div>
       </div>
+      {/* logout button */}
+      <button className="logout-button" onClick={() => window.location.href = 'http://localhost:3000/login'}>Logout</button>
+
 
       <div className="footer">
         <p>Security</p>
