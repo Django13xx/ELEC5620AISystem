@@ -34,7 +34,10 @@ const LoginPage = () => {
             navigate('/home');
             break;
           case 'RESIDENT':
-            navigate('/user');
+            navigate('/resident');
+            break;
+          case 'SECURITY':
+            navigate('/security');
             break;
           default:
             console.error('Invalid role');

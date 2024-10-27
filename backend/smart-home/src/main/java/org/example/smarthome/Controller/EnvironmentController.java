@@ -85,4 +85,9 @@ public class EnvironmentController {
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/history")
+    public ResponseEntity<Iterable<Environment>> getEnvironmentHistory() {
+        Iterable<Environment> environmentHistory = environmentRepository.findAll();
+        return new ResponseEntity<>(environmentHistory, HttpStatus.OK);
+    }
 }

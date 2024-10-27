@@ -48,6 +48,7 @@ INSERT INTO user (username, email, password, role, parent_id, number, status) VA
                                                                                   ('resident3', 'resident3@example.com', 'password5', 'RESIDENT', 2, '1121232362', 1),
                                                                                   ('resident4', 'resident4@example.com', 'password6', 'RESIDENT', 2, '1867123312', 1),
                                                                                   ('resident5', 'resident5@example.com', 'password7', 'RESIDENT', 2, '1122125675', 1);
+                                                                                  ('Security1', 'seccurity1@example.com', 'password8', 'SECURITY', 0, '143929839', 1);
 
 INSERT INTO environment (ac_temperature, light_status, music_track, fragrance_type) VALUES
                                                                                           (23, 1, 1, 1),

@@ -1,0 +1,36 @@
+.User {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.control-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; /* 居中对齐 */
+  align-items: center; /* 垂直居中 */
+  gap: 20px; /* 按钮之间的间距 */
+  padding: 10px 0; /* 顶部和底部的内边距 */
+  background-color: #f8f8f8; /* 导航栏背景色 */
+  border: 1px solid #ccc; /* 导航栏外框 */
+}
+
+.nav-button {
+  padding: 10px 20px; /* 按钮的内边距 */
+  border: 1px solid #007bff; /* 按钮外框 */
+  background-color: transparent; /* 按钮背景色 */
+  color: #007bff; /* 按钮文本颜色 */
+  border-radius: 5px; /* 按钮圆角 */
+  cursor: pointer; /* 鼠标悬停时指针变为手型 */
+  transition: background-color 0.3s; /* 背景色变化过渡 */
+}
+
+.nav-button:hover {
+  background-color: #007bff; /* 悬停时的背景色 */
+  color: white; /* 悬停时文本颜色 */
+}

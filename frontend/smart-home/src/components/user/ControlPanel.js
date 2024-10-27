@@ -7,6 +7,7 @@ function ControlPanel() {
   const [musicType, setMusicType] = useState(1); // Default music type
   const [fragranceType, setFragranceType] = useState(1); // Default fragrance type
   const [lightStatus, setLightStatus] = useState(0); // Default light status
+  // eslint-disable-next-line no-unused-vars
   const [userInput, setUserInput] = useState(''); // State for user input
   const [response, setResponse] = useState(null); // State for API response
   const [isRecording, setIsRecording] = useState(false); // Recording status
@@ -35,14 +36,15 @@ function ControlPanel() {
     setUserInput(e.target.value);
   };
 
-  const handleProcessText = async () => {
+  const handleProcessText = async (commandText) => {
+    console.log('Command text:', commandText);
     try {
       const res = await fetch('http://localhost:8080/api/environment/process-text', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userInput: transcript }),
+        body: JSON.stringify({ userInput: commandText }),
       });
 
       if (!res.ok) {
@@ -92,6 +94,7 @@ function ControlPanel() {
         recognition.onresult = (event) => {
           const transcriptText = event.results[0][0].transcript;
           setTranscript(transcriptText);
+          handleProcessText(transcriptText); // Process the transcript
           setUserInput(transcriptText); // Display transcript in input box
         };
 
@@ -117,7 +120,6 @@ function ControlPanel() {
 
         recognition.onend = () => {
           setIsRecording(false); // Reset recording status when recognition ends
-          handleProcessText(); // Process the recorded text
         };
 
         recognition.start(); // Start the recognition
@@ -241,10 +243,6 @@ function ControlPanel() {
       </div>
 
       <div className="button-container">
-        <button onClick={handleProcessText} className="process-button">
-          {texts[language].processText}
-        </button>
-
         <button
           onClick={toggleRecording}
           className={`record-button ${isRecording ? 'recording' : ''}`}
