@@ -68,24 +68,42 @@ public class UserController {
 
     @PostMapping("/addhomeowner")
     public ResponseEntity<User> addHomeOwner(@RequestParam int userId, @RequestParam int propertyId, @RequestBody User user) {
-        // 设置默认角色为 "HOMEOWNER"
+        // Check if a user with the same email already exists
+        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+
+        if (existingUser.isPresent()) {
+            // If user exists, update the property with the existing user ID
+            Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
+            if (propertyOptional.isPresent()) {
+                Property property = propertyOptional.get();
+                property.setuser(existingUser.get());  // Associate the property with the existing user
+                propertyRepository.save(property);
+                return new ResponseEntity<>(HttpStatus.OK); // Respond with 200 OK
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Property not found
+            }
+        }
+
+        // If user does not exist, create a new one with the default role "HOMEOWNER"
         user.setRole(User.Role.HOMEOWNER);
         user.setParentId(userId);
         user.setPassword("homeowner" + user.getNumber());
-        // 保存新用户
+
+        // Save the new user
         User savedUser = userRepository.save(user);
 
+        // Associate the new user with the property
         Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
             property.setuser(savedUser);
             propertyRepository.save(property);
+            return new ResponseEntity<>(savedUser, HttpStatus.CREATED); // Respond with 201 Created
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Property not found
         }
-
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/deleteresident")
     @Transactional

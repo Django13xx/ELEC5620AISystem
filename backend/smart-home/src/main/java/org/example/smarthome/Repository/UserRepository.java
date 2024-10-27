@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByParentId(int parentId);
 
+    Optional<User> findByEmail(String email);
 }
