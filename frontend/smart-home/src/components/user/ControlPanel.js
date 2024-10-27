@@ -42,7 +42,7 @@ function ControlPanel() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userInput: transcript || userInput }),
+        body: JSON.stringify({ userInput: transcript }),
       });
 
       if (!res.ok) {
@@ -117,6 +117,7 @@ function ControlPanel() {
 
         recognition.onend = () => {
           setIsRecording(false); // Reset recording status when recognition ends
+          handleProcessText(); // Process the recorded text
         };
 
         recognition.start(); // Start the recognition
@@ -232,7 +233,7 @@ function ControlPanel() {
         <h4>{texts[language].userInput}</h4>
         <input
           type="text"
-          value={transcript || userInput}
+          value={transcript}
           onChange={handleInputChange}
           placeholder="Type or say something..."
           className="user-input"

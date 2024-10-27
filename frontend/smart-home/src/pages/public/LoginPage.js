@@ -84,8 +84,11 @@ const LoginPage = () => {
             <button
               type="button"
               className="flex-1 p-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50"
+              onClick={() => {
+                window.location.href = 'http://localhost:3000/user';
+              }}
             >
-              Register
+              Visitor Mode
             </button>
           </div>
         </form>
