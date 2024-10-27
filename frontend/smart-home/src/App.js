@@ -9,6 +9,9 @@ import LoginPage from './pages/public/LoginPage';
 import ManagerPage from './pages/manager/ManagerPage';
 import HomePage from './pages/homeowner/HomePage';
 import UserPage from './pages/user/UserPage';
+import SecurityPage from './pages/security/SecurityPage';
+
+
 
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
 
           
           <Route path="/user" element={<UserPage />} />
+          <Route path="/security" element={<SecurityPage /> } />
+      
+
         </Routes>
       </Router>
     </div>
