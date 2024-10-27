@@ -9,6 +9,9 @@ import LoginPage from './pages/public/LoginPage';
 import ManagerPage from './pages/manager/ManagerPage';
 import HomePage from './pages/homeowner/HomePage';
 import UserPage from './pages/user/UserPage';
+import SecurityPage from './pages/security/SecurityPage';
+
+
 import ResidentPage from './pages/user/ResidentPage';
 
 
@@ -28,6 +31,9 @@ function App() {
 
           
           <Route path="/user" element={<UserPage />} />
+          <Route path="/security" element={<SecurityPage /> } />
+      
+
           <Route path="/resident" element={<ResidentPage />} />
         </Routes>
       </Router>
